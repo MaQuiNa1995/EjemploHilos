@@ -1,0 +1,120 @@
+Simulación de un Cofre con capacidad 10 y 20 hilos.
+-------------------------------------------------------------------
+Hilo-1 intenta entrar al cofre objetos actuales dentro: 0
+Hilo-1 ha entrado al cofre
+Hilo-3 intenta entrar al cofre objetos actuales dentro: 1
+Hilo-3 ha entrado al cofre
+Hilo-2 intenta entrar al cofre objetos actuales dentro: 2
+Hilo-2 ha entrado al cofre
+Hilo-5 intenta entrar al cofre objetos actuales dentro: 3
+Hilo-5 ha entrado al cofre
+Hilo-4 intenta entrar al cofre objetos actuales dentro: 4
+Hilo-4 ha entrado al cofre
+Hilo-10 intenta entrar al cofre objetos actuales dentro: 5
+Hilo-10 ha entrado al cofre
+Hilo-11 intenta entrar al cofre objetos actuales dentro: 6
+Hilo-11 ha entrado al cofre
+Hilo-8 intenta entrar al cofre objetos actuales dentro: 7
+Hilo-8 ha entrado al cofre
+Hilo-16 intenta entrar al cofre objetos actuales dentro: 8
+Hilo-16 ha entrado al cofre
+Hilo-9 intenta entrar al cofre objetos actuales dentro: 9
+Hilo-9 ha entrado al cofre
+Hilo-7 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-6 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-20 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-19 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-18 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-17 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-15 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-14 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-13 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-12 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-5 sale del cofre
+Hilo-7 intenta entrar al cofre objetos actuales dentro: 9
+Hilo-7 ha entrado al cofre
+Hilo-12 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-13 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-14 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-15 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-17 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-18 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-19 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-20 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-6 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-3 sale del cofre
+Hilo-2 sale del cofre
+Hilo-1 sale del cofre
+Hilo-6 intenta entrar al cofre objetos actuales dentro: 7
+Hilo-6 ha entrado al cofre
+Hilo-20 intenta entrar al cofre objetos actuales dentro: 8
+Hilo-20 ha entrado al cofre
+Hilo-19 intenta entrar al cofre objetos actuales dentro: 9
+Hilo-19 ha entrado al cofre
+Hilo-18 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-17 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-15 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-14 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-13 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-12 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-9 sale del cofre
+Hilo-18 intenta entrar al cofre objetos actuales dentro: 9
+Hilo-18 ha entrado al cofre
+Hilo-12 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-13 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-15 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-17 intenta entrar al cofre objetos actuales dentro: 10
+Hilo-11 sale del cofre
+Hilo-10 sale del cofre
+Hilo-4 sale del cofre
+Hilo-8 sale del cofre
+Hilo-16 sale del cofre
+Hilo-17 intenta entrar al cofre objetos actuales dentro: 5
+Hilo-17 ha entrado al cofre
+Hilo-15 intenta entrar al cofre objetos actuales dentro: 6
+Hilo-15 ha entrado al cofre
+Hilo-13 intenta entrar al cofre objetos actuales dentro: 7
+Hilo-13 ha entrado al cofre
+Hilo-12 intenta entrar al cofre objetos actuales dentro: 8
+Hilo-12 ha entrado al cofre
+Hilo-14 intenta entrar al cofre objetos actuales dentro: 9
+Hilo-14 ha entrado al cofre
+Hilo-7 sale del cofre
+Hilo-19 sale del cofre
+Hilo-6 sale del cofre
+Hilo-20 sale del cofre
+Hilo-18 sale del cofre
+Hilo-14 sale del cofre
+Hilo-15 sale del cofre
+Hilo-12 sale del cofre
+Hilo-13 sale del cofre
+Hilo-17 sale del cofre
+
+
+Explicación:
+
+1. Llenado y Bloqueo Inicial
+
+    El cofre se llena secuencialmente (aunque de forma asíncrona, ya que los IDs de los hilos están desordenados: 1, 3, 2, 5, 4, etc.).
+
+    El Hilo-9 entra cuando hay 9 objetos, siendo el décimo en depositar.
+
+    En la siguiente línea, Hilo-7 intenta entrar al cofre objetos actuales dentro: 10. ¡Correcto! El cofre tiene su capacidad máxima de 10.
+
+    Todos los hilos que intentan entrar a partir de ese momento (7, 6, 20, 19, 18, 17, 15, 14, 13, 12) son detenidos porque la capacidad es 10. Aquí es donde los hilos llaman a wait() y se quedan esperando una notificación.
+
+2. Liberación y Reingreso Cíclico
+
+    El Hilo-5 sale del cofre. La capacidad baja a 9.
+
+    Inmediatamente, uno de los hilos en espera (en este caso, Hilo-7) se despierta, verifica la condición (9 < 10), y logra entrar.
+
+        Importante: Se ve que, a pesar de que Hilo-7 entra, los demás hilos (12, 13, 14, etc.) vuelven a encontrarse con la capacidad en 10, lo que significa que el planificador del sistema permitió que Hilo-7 fuera el único que avanzara al ser notificado (o simplemente fue el primero en re-adquirir el monitor).
+
+    El ciclo se repite: Los hilos que están dentro (1, 2, 3, 4, 8, 9, 10, 11, 16, 7) terminan sus 5 segundos y salen.
+
+    Cada vez que varios hilos salen (Hilo-3 sale del cofre, Hilo-2 sale del cofre, Hilo-1 sale del cofre), se liberan 3 espacios, permitiendo que nuevos hilos (Hilo-6, Hilo-20, Hilo-19) entren rápidamente en sucesión.
+
+3. Conclusión
+
+La salida es completamente consistente con un sistema de productor-consumidor (o recurso limitado) implementado con sincronización (synchronized) y mecanismos de espera (wait() / notifyAll()). La mezcla de orden en las entradas iniciales y el desorden en las salidas/reingresos es la firma del código concurrente.
